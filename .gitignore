@@ -1,0 +1,17 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+uploads/
+
+*.log
+
+.DS_Store
+Thumbs.db
+
+application-dev.yml
+application-prod.yml
