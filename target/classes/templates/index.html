@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客首页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/site.css?v=3">
+</head>
+<body class="site-body">
+<div class="site-shell">
+    <header class="hero">
+        <div class="hero-backdrop"></div>
+        <nav class="topbar">
+            <div class="brand">
+                <span id="siteLogoMark" class="brand-mark">B</span>
+                <span id="siteName">博客加载中</span>
+            </div>
+            <div class="topbar-links">
+                <a href="#articles">文章</a>
+                <a href="#archive">归档</a>
+                <a href="/admin-ui">后台</a>
+            </div>
+        </nav>
+        <section class="hero-content">
+            <p class="eyebrow">Spring Boot + MyBatis Blog</p>
+            <h1 id="siteDescription">正在加载站点描述...</h1>
+            <p id="siteNotice" class="hero-note">欢迎来到这里。</p>
+        </section>
+    </header>
+
+    <main class="layout">
+        <section class="content-panel" id="articles">
+            <div class="section-head">
+                <div>
+                    <p class="section-kicker">Latest Stories</p>
+                    <h2>文章列表</h2>
+                </div>
+                <div class="toolbar">
+                    <input id="keywordInput" type="text" placeholder="搜索标题或摘要">
+                    <button id="searchButton" class="btn-primary">搜索</button>
+                </div>
+            </div>
+            <div id="articleList" class="article-grid"></div>
+            <div class="pager">
+                <button id="prevPageButton" class="btn-secondary">上一页</button>
+                <span id="pageInfo">第 1 页</span>
+                <button id="nextPageButton" class="btn-secondary">下一页</button>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <section class="card">
+                <h3>分类</h3>
+                <div id="categoryList" class="chip-list"></div>
+            </section>
+            <section class="card">
+                <h3>标签</h3>
+                <div id="tagList" class="chip-list"></div>
+            </section>
+            <section class="card" id="archive">
+                <h3>归档</h3>
+                <div id="archiveList" class="archive-list"></div>
+            </section>
+            <section class="card">
+                <h3>站点信息</h3>
+                <div class="site-meta">
+                    <p id="footerInfo">加载中...</p>
+                    <a id="githubUrl" href="#" target="_blank" rel="noreferrer">GitHub</a>
+                    <a id="giteeUrl" href="#" target="_blank" rel="noreferrer">Gitee</a>
+                </div>
+            </section>
+        </aside>
+    </main>
+    <footer class="footer">
+        <span id="footerText">Blog</span>
+    </footer>
+</div>
+
+<script src="/assets/js/portal.js?v=3"></script>
+</body>
+</html>

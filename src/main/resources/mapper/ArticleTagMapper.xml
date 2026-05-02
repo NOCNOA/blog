@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.mapper.ArticleTagMapper">
+
+    <select id="selectByArticleId" resultType="com.example.blog.entity.ArticleTag">
+        select
+            id,
+            article_id,
+            tag_id
+        from article_tag
+        where article_id = #{articleId}
+    </select>
+
+    <select id="selectByArticleIds" resultType="com.example.blog.entity.ArticleTag">
+        select
+            id,
+            article_id,
+            tag_id
+        from article_tag
+        where article_id in
+        <foreach collection="articleIds" item="articleId" open="(" separator="," close=")">
+            #{articleId}
+        </foreach>
+        order by id asc
+    </select>
+
+    <select id="selectTagIdsByArticleId" resultType="long">
+        select tag_id
+        from article_tag
+        where article_id = #{articleId}
+        order by id asc
+    </select>
+
+    <delete id="deleteByArticleId">
+        delete from article_tag
+        where article_id = #{articleId}
+    </delete>
+
+    <insert id="batchInsert">
+        insert into article_tag (
+            article_id,
+            tag_id
+        ) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.articleId}, #{item.tagId})
+        </foreach>
+    </insert>
+</mapper>

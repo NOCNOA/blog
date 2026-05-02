@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.mapper.UserMapper">
+
+    <select id="selectByUsername" resultType="com.example.blog.entity.User">
+        select
+            id,
+            username,
+            password,
+            nickname,
+            avatar,
+            email,
+            status,
+            create_time,
+            update_time
+        from user
+        where username = #{username}
+        limit 1
+    </select>
+
+    <select id="selectById" resultType="com.example.blog.entity.User">
+        select
+            id,
+            username,
+            password,
+            nickname,
+            avatar,
+            email,
+            status,
+            create_time,
+            update_time
+        from user
+        where id = #{id}
+        limit 1
+    </select>
+
+    <update id="updateProfileById">
+        update user
+        set
+            nickname = #{nickname},
+            avatar = #{avatar},
+            email = #{email}
+        where id = #{id}
+    </update>
+
+    <update id="updatePasswordById">
+        update user
+        set password = #{password}
+        where id = #{id}
+    </update>
+</mapper>

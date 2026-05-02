@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.mapper.CategoryMapper">
+
+    <select id="selectAll" resultType="com.example.blog.entity.Category">
+        select
+            id,
+            name,
+            description,
+            sort,
+            create_time,
+            update_time
+        from category
+        order by sort asc, id desc
+    </select>
+
+    <select id="selectById" resultType="com.example.blog.entity.Category">
+        select
+            id,
+            name,
+            description,
+            sort,
+            create_time,
+            update_time
+        from category
+        where id = #{id}
+        limit 1
+    </select>
+
+    <select id="selectByName" resultType="com.example.blog.entity.Category">
+        select
+            id,
+            name,
+            description,
+            sort,
+            create_time,
+            update_time
+        from category
+        where name = #{name}
+        limit 1
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into category (
+            name,
+            description,
+            sort
+        ) values (
+            #{name},
+            #{description},
+            #{sort}
+        )
+    </insert>
+
+    <update id="updateById">
+        update category
+        set
+            name = #{name},
+            description = #{description},
+            sort = #{sort}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from category
+        where id = #{id}
+    </delete>
+
+    <select id="countArticleByCategoryId" resultType="long">
+        select count(1)
+        from article
+        where category_id = #{categoryId}
+    </select>
+
+    <select id="countAll" resultType="long">
+        select count(1)
+        from category
+    </select>
+</mapper>

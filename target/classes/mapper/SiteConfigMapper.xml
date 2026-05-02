@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.mapper.SiteConfigMapper">
+
+    <select id="selectCurrent" resultType="com.example.blog.entity.SiteConfig">
+        select
+            id,
+            site_name,
+            site_logo,
+            site_description,
+            site_notice,
+            footer_info,
+            github_url,
+            gitee_url,
+            avatar,
+            create_time,
+            update_time
+        from site_config
+        order by id asc
+        limit 1
+    </select>
+
+    <update id="updateCurrent">
+        update site_config
+        set
+            site_name = #{siteName},
+            site_logo = #{siteLogo},
+            site_description = #{siteDescription},
+            site_notice = #{siteNotice},
+            footer_info = #{footerInfo},
+            github_url = #{githubUrl},
+            gitee_url = #{giteeUrl},
+            avatar = #{avatar}
+        where id = #{id}
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into site_config (
+            site_name,
+            site_logo,
+            site_description,
+            site_notice,
+            footer_info,
+            github_url,
+            gitee_url,
+            avatar
+        ) values (
+            #{siteName},
+            #{siteLogo},
+            #{siteDescription},
+            #{siteNotice},
+            #{footerInfo},
+            #{githubUrl},
+            #{giteeUrl},
+            #{avatar}
+        )
+    </insert>
+</mapper>

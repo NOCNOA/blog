@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.mapper.ArticleMapper">
+
+    <resultMap id="ArticleAdminListMap" type="com.example.blog.vo.ArticleAdminListVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="coverImage" column="cover_image"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="authorId" column="author_id"/>
+        <result property="authorName" column="author_name"/>
+        <result property="status" column="status"/>
+        <result property="isTop" column="is_top"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <resultMap id="ArticlePortalListMap" type="com.example.blog.vo.ArticlePortalListVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="coverImage" column="cover_image"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="authorName" column="author_name"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="publishTime" column="publish_time"/>
+    </resultMap>
+
+    <resultMap id="ArticlePortalDetailMap" type="com.example.blog.vo.ArticlePortalDetailVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="content" column="content"/>
+        <result property="coverImage" column="cover_image"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="authorId" column="author_id"/>
+        <result property="authorName" column="author_name"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="publishTime" column="publish_time"/>
+    </resultMap>
+
+    <select id="selectPublishedList" resultType="com.example.blog.entity.Article">
+        select
+            id,
+            title,
+            summary,
+            content,
+            cover_image,
+            category_id,
+            author_id,
+            status,
+            is_top,
+            view_count,
+            publish_time,
+            create_time,
+            update_time
+        from article
+        where status = 1
+        order by is_top desc, publish_time desc, id desc
+    </select>
+
+    <select id="selectById" resultType="com.example.blog.entity.Article">
+        select
+            id,
+            title,
+            summary,
+            content,
+            cover_image,
+            category_id,
+            author_id,
+            status,
+            is_top,
+            view_count,
+            publish_time,
+            create_time,
+            update_time
+        from article
+        where id = #{id}
+        limit 1
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into article (
+            title,
+            summary,
+            content,
+            cover_image,
+            category_id,
+            author_id,
+            status,
+            is_top,
+            view_count,
+            publish_time
+        ) values (
+            #{title},
+            #{summary},
+            #{content},
+            #{coverImage},
+            #{categoryId},
+            #{authorId},
+            #{status},
+            #{isTop},
+            #{viewCount},
+            #{publishTime}
+        )
+    </insert>
+
+    <update id="updateById">
+        update article
+        set
+            title = #{title},
+            summary = #{summary},
+            content = #{content},
+            cover_image = #{coverImage},
+            category_id = #{categoryId},
+            status = #{status},
+            is_top = #{isTop},
+            publish_time = #{publishTime}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from article
+        where id = #{id}
+    </delete>
+
+    <select id="selectAdminList" resultMap="ArticleAdminListMap">
+        select
+            a.id,
+            a.title,
+            a.summary,
+            a.cover_image,
+            a.category_id,
+            c.name as category_name,
+            a.author_id,
+            u.nickname as author_name,
+            a.status,
+            a.is_top,
+            a.view_count,
+            a.publish_time,
+            a.create_time
+        from article a
+        left join category c on a.category_id = c.id
+        left join user u on a.author_id = u.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (a.title like concat('%', #{keyword}, '%')
+                or a.summary like concat('%', #{keyword}, '%'))
+            </if>
+            <if test="categoryId != null">
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+        </where>
+        order by a.is_top desc, a.create_time desc, a.id desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="countAdminList" resultType="long">
+        select count(1)
+        from article a
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (a.title like concat('%', #{keyword}, '%')
+                or a.summary like concat('%', #{keyword}, '%'))
+            </if>
+            <if test="categoryId != null">
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateStatus">
+        update article
+        set
+            status = #{status},
+            publish_time = #{publishTime}
+        where id = #{id}
+    </update>
+
+    <select id="selectPortalList" resultMap="ArticlePortalListMap">
+        select distinct
+            a.id,
+            a.title,
+            a.summary,
+            a.cover_image,
+            a.category_id,
+            c.name as category_name,
+            u.nickname as author_name,
+            a.is_top,
+            a.view_count,
+            a.publish_time
+        from article a
+        left join category c on a.category_id = c.id
+        left join user u on a.author_id = u.id
+        left join article_tag at on a.id = at.article_id
+        <where>
+            a.status = 1
+            <if test="keyword != null and keyword != ''">
+                and (a.title like concat('%', #{keyword}, '%')
+                or a.summary like concat('%', #{keyword}, '%'))
+            </if>
+            <if test="categoryId != null">
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="tagId != null">
+                and at.tag_id = #{tagId}
+            </if>
+        </where>
+        order by a.is_top desc, a.publish_time desc, a.id desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="countPortalList" resultType="long">
+        select count(distinct a.id)
+        from article a
+        left join article_tag at on a.id = at.article_id
+        <where>
+            a.status = 1
+            <if test="keyword != null and keyword != ''">
+                and (a.title like concat('%', #{keyword}, '%')
+                or a.summary like concat('%', #{keyword}, '%'))
+            </if>
+            <if test="categoryId != null">
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="tagId != null">
+                and at.tag_id = #{tagId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPortalDetailById" resultMap="ArticlePortalDetailMap">
+        select
+            a.id,
+            a.title,
+            a.summary,
+            a.content,
+            a.cover_image,
+            a.category_id,
+            c.name as category_name,
+            a.author_id,
+            u.nickname as author_name,
+            a.view_count,
+            a.publish_time
+        from article a
+        left join category c on a.category_id = c.id
+        left join user u on a.author_id = u.id
+        where a.id = #{id}
+          and a.status = 1
+        limit 1
+    </select>
+
+    <update id="increaseViewCount">
+        update article
+        set view_count = view_count + 1
+        where id = #{id}
+    </update>
+
+    <select id="selectArchiveList" resultType="com.example.blog.vo.ArticleArchiveVO">
+        select
+            id,
+            title,
+            publish_time
+        from article
+        where status = 1
+        order by publish_time desc, id desc
+    </select>
+
+    <select id="countAll" resultType="long">
+        select count(1)
+        from article
+    </select>
+
+    <select id="countByStatus" resultType="long">
+        select count(1)
+        from article
+        where status = #{status}
+    </select>
+</mapper>
