@@ -12,6 +12,8 @@ uploads/
 
 .env
 
+docker/
+
 .DS_Store
 Thumbs.db
 
