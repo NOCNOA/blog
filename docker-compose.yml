@@ -9,7 +9,7 @@ services:
     networks:
       - shared
     environment:
-      DB_URL: jdbc:mysql://blog-mysql:3306/blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      DB_URL: jdbc:mysql://1Panel-mysql-O0OE:3306/blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
       DB_USERNAME: root
       DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
