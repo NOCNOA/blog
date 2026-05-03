@@ -2,6 +2,9 @@
 
 基于 Spring Boot 3 + MyBatis + MySQL 的博客后端项目。
 
+<img width="3056" height="1588" alt="image" src="https://github.com/user-attachments/assets/6863c153-9940-49f1-928e-b67744988be6" />
+
+
 ## 技术栈
 
 | 技术 | 版本 | 说明 |
@@ -58,61 +61,6 @@ src/main/java/com/example/blog/
 ├── util/                # 工具类（JwtUtil / LoginUserContext）
 └── vo/                  # 响应视图对象
 ```
-
-## API 接口一览
-
-### 后台接口（需 `Authorization: Bearer <token>`）
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| POST | `/admin/auth/login` | 管理员登录（无需 token） |
-| GET | `/admin/auth/info` | 获取当前登录信息 |
-| POST | `/admin/auth/logout` | 退出登录 |
-| GET | `/admin/auth/profile` | 获取个人资料 |
-| PUT | `/admin/auth/profile` | 修改个人资料 |
-| PUT | `/admin/auth/password` | 修改登录密码 |
-| POST | `/admin/article` | 新增文章 |
-| PUT | `/admin/article` | 修改文章 |
-| DELETE | `/admin/article/{id}` | 删除文章 |
-| GET | `/admin/article/{id}` | 查询文章详情 |
-| GET | `/admin/article/list` | 分页查询文章列表 |
-| PUT | `/admin/article/status` | 修改文章状态 |
-| POST | `/admin/category` | 新增分类 |
-| PUT | `/admin/category` | 修改分类 |
-| DELETE | `/admin/category/{id}` | 删除分类 |
-| GET | `/admin/category/{id}` | 查询分类详情 |
-| GET | `/admin/category/list` | 查询分类列表 |
-| POST | `/admin/tag` | 新增标签 |
-| PUT | `/admin/tag` | 修改标签 |
-| DELETE | `/admin/tag/{id}` | 删除标签 |
-| GET | `/admin/tag/{id}` | 查询标签详情 |
-| GET | `/admin/tag/list` | 查询标签列表 |
-| GET | `/admin/site-config` | 获取站点配置 |
-| PUT | `/admin/site-config` | 修改站点配置 |
-| POST | `/admin/file/upload` | 上传图片 |
-| GET | `/admin/dashboard/statistics` | 获取统计数据 |
-
-### 前台接口（无需鉴权）
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/article/list` | 分页查询文章列表 |
-| GET | `/article/{id}` | 查询文章详情 |
-| GET | `/article/archive` | 查询文章归档 |
-| GET | `/category/list` | 查询分类列表 |
-| GET | `/tag/list` | 查询标签列表 |
-| GET | `/site` | 获取站点信息 |
-| GET | `/health` | 健康检查 |
-
-## 运行环境
-
-- JDK 17+
-- Maven 3.9+
-- MySQL 8+
-
-## 快速开始
-
-### 1. 初始化数据库
 
 依次执行以下脚本：
 
