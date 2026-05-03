@@ -13,6 +13,8 @@ uploads/
 .env
 
 docker/
+!docker/mysql-init/
+!docker/mysql-init/**
 
 .DS_Store
 Thumbs.db
