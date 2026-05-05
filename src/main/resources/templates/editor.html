@@ -6,8 +6,8 @@
     <title>文章编辑器</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/editor.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/editor.css?v=6">
 </head>
 <body class="editor-body">
 <div class="editor-shell">
@@ -43,9 +43,9 @@
                     <button type="button" data-action="code" title="代码">&lt;/&gt;</button>
                     <button type="button" data-action="quote" title="引用">&quot;</button>
                     <button type="button" data-action="ul" title="无序列表">&bull;</button>
-                    <button type="button" data-action="link" title="链接">🔗</button>
-                    <button type="button" id="imageUploadBtn" title="上传图片">📷</button>
-                    <button type="button" id="imageSizeBtn" title="设置图片大小">🖼️</button>
+                    <button type="button" data-action="link" title="链接">Link</button>
+                    <button type="button" id="imageUploadBtn" title="上传图片">IMG</button>
+                    <button type="button" id="imageSizeBtn" title="设置图片大小">Size</button>
                     <span class="toolbar-sep"></span>
                     <label class="toolbar-label">字号</label>
                     <select id="fontSizeSelect" class="toolbar-select" title="字体大小">
@@ -130,6 +130,6 @@
     <input type="file" id="coverFileInput" accept="image/png,image/jpeg,image/gif,image/bmp,image/webp">
 </form>
 
-<script src="/assets/js/editor.js?v=5"></script>
+<script src="/assets/js/editor.js?v=6"></script>
 </body>
 </html>
